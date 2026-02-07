@@ -1,0 +1,43 @@
+/* This css was generated from Copilot */
+.hidden-words-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.hidden-words-table th,
+.hidden-words-table td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.hidden-words-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.hidden-words-table tr:hover {
+    background-color: #e6e6e6;
+}
+
+button {
+    padding: 6px 12px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+.edit-btn {
+    background-color: #4CAF50;
+}
+
+.delete-btn {
+    background-color: #d9534f;
+}
+
+.edit-btn:hover {
+    background-color: #45a049;
+}

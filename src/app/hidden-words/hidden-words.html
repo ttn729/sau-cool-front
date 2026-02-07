@@ -1,11 +1,13 @@
 @if (!isPrinterFriendly) {
 <section class="toolbar-container">
-    <button title="Deprecated: Will allow user to download pdf directly in the future" (click)="togglePrinterFriendly()">Printer Friendly X </button>
+    <button title="Deprecated: Will allow user to download pdf directly in the future"
+        (click)="togglePrinterFriendly()">Printer Friendly X </button>
     <button title="Hide words based on % hidden" (click)="toggleHideWords()">Hide Words</button>
-    <input type="number" placeholder="0-100% Hidden"  [(ngModel)]="percentHidden" />
+    <input type="number" placeholder="0-100% Hidden" [(ngModel)]="percentHidden" />
     <input type="number" placeholder="# Lines to Append" [(ngModel)]="numLinesToAppend" />
-
     <button title="Scramble order of word/meaning pairs" (click)="scrambleOrder()">Scramble Order</button>
+    <button title="Save hidden words">Save Hidden Words</button>
+
 </section>
 }
 

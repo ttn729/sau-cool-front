@@ -1,0 +1,45 @@
+/* ul, li a, li a:hover styles were inspired from w3 schools */
+
+nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    height: 100%;
+    position: fixed;
+}
+
+nav a, nav p {
+    display: block;
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    /* Removes underline from link */
+}
+
+nav a:hover, nav p:hover {
+    background-color: #555555;
+    color: white;
+}
+
+
+.submenu {
+    position: relative
+}
+
+.submenu-items {
+    display: none;
+    position: absolute;
+    left: 200px;
+    /* appear to the right of the sidebar */
+    top: 0;
+    background-color: #f1f1f1;
+    width: 200px;
+    border-left: 1px solid #ccc;
+    z-index: 10;
+}
+
+.submenu:hover .submenu-items {
+    display: block;
+}

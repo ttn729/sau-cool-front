@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { HiddenWordsService } from '../hidden-words-service';
 
 @Component({
   selector: 'app-hidden-words',
@@ -8,6 +10,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './hidden-words.css',
 })
 export class HiddenWords {
+  hiddenWordsService = inject(HiddenWordsService)
+
   isPrinterFriendly = false
   isHideWords = false
   percentHidden: Number | null = null
@@ -16,6 +20,15 @@ export class HiddenWords {
 
   words = ''
   meanings = ''
+
+  constructor(route: ActivatedRoute) {
+    const topicTitle: string = route.snapshot.params['topicTitle'];
+
+    const hiddenWord = this.hiddenWordsService.getHiddenWordByTopicTitle(topicTitle)
+    if (hiddenWord) {
+      this.topicTitle = hiddenWord.topicTitle
+    }
+  }
 
   scrambleOrder() {
     /** This function was generated with the help of Copilot, 

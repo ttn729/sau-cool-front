@@ -1,0 +1,24 @@
+<h1>Hidden Words List</h1>
+
+<table class="hidden-words-table">
+    <thead>
+        <tr>
+            <th>Actions</th>
+            <th>Topic Title</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (hiddenWords of hiddenWordsList; track hiddenWords.topicTitle) {
+        <tr>
+            <td>
+                <button class="edit-btn" (click)="editHiddenWords(hiddenWords.topicTitle)">Edit</button>
+                <button class="delete-btn" (click)="deleteHiddenWords(hiddenWords.topicTitle)">Delete</button>
+
+            </td>
+            <td>{{ hiddenWords.topicTitle }}</td>
+
+        </tr>
+        }
+    </tbody>
+</table>
