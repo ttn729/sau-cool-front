@@ -1,0 +1,41 @@
+@if (!isPrinterFriendly) {
+<section class="toolbar-container">
+    <button title="Deprecated: Will allow user to download pdf directly in the future" (click)="togglePrinterFriendly()">Printer Friendly X </button>
+    <button title="Hide words based on % hidden" (click)="toggleHideWords()">Hide Words</button>
+    <input type="number" placeholder="0-100% Hidden"  [(ngModel)]="percentHidden" />
+    <input type="number" placeholder="# Lines to Append" [(ngModel)]="numLinesToAppend" />
+
+    <button title="Scramble order of word/meaning pairs" (click)="scrambleOrder()">Scramble Order</button>
+</section>
+}
+
+<div class="topic-title-container">
+    <input class="topic-title-input" type="text" placeholder="Type the topic title here" [(ngModel)]="topicTitle" />
+</div>
+
+<section class="word-meaning-container">
+    <div class="word-container">
+        <h1>Words</h1>
+        <textarea placeholder="Input words" rows="40" cols="40" [(ngModel)]="words"></textarea>
+    </div>
+
+    <div class="meaning-container">
+        <h1>Meanings</h1>
+        <textarea placeholder="Input meanings" rows="40" cols="40" [(ngModel)]="meanings"></textarea>
+    </div>
+
+    @if (!isPrinterFriendly) {
+
+    <section class="summary-container">
+        <h1>_______</h1>
+        <h2>Summary</h2>
+        <p><b>Printer Friendly X:</b> {{isPrinterFriendly}}</p>
+        <p><b>Hide Words:</b> {{isHideWords}} </p>
+        <p><b>% Hidden:</b> {{percentHidden }}</p>
+        <p><b># Lines to Append:</b> {{numLinesToAppend}} </p>
+        <p><b>Topic Title:</b> {{topicTitle}} </p>
+        <p><b>Input Words:</b> {{words}}</p>
+        <p><b>Input Meanings:</b> {{meanings}}</p>
+    </section>
+    }
+</section>
