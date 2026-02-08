@@ -18,13 +18,16 @@ export class HiddenWords {
   topicTitle = signal('')
   words = signal('')
   meanings = signal('')
-  numLinesToAppend: Number | null = null
-  percentHidden: Number | null = null
+  numLinesToAppend = signal<number | null>(null);
+  percentHidden = signal<number | null>(null);
+  numWordsToKeep = signal<number | null>(null);
 
   wordMeaningPairs = computed(() => {
     const wordsArr = this.words().split('\n');
     const meaningsArr = this.meanings().split('\n');
-    const maxLength = Math.max(wordsArr.length, meaningsArr.length);
+
+    let maxLength = Math.max(wordsArr.length, meaningsArr.length);
+    maxLength = Math.min(maxLength, this.numWordsToKeep() ?? maxLength)
     return Array.from({ length: maxLength }, (_, i) => ({ index: i, word: wordsArr[i] ?? '', meaning: meaningsArr[i] ?? '' }));
   });
 
@@ -36,8 +39,8 @@ export class HiddenWords {
       this.topicTitle.set(hiddenWord.topicTitle)
       this.words.set(hiddenWord.words ?? '')
       this.meanings.set(hiddenWord.meanings ?? '')
-      this.numLinesToAppend = hiddenWord.numLinesToAppend ?? null
-      this.percentHidden = hiddenWord.percentHidden ?? null
+      this.numLinesToAppend.set(hiddenWord.numLinesToAppend ?? null)
+      this.percentHidden.set(hiddenWord.percentHidden ?? null)
     }
   }
 

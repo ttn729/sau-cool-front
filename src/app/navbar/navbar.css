@@ -1,11 +1,5 @@
 /* ul, li a, li a:hover styles were inspired from w3 schools */
 
-/* @media print {
-  nav {
-    display: none !important;
-  }
-} */
-
 nav {
     list-style-type: none;
     margin: 0;
