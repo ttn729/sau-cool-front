@@ -1,5 +1,4 @@
-@if (!isPrinterFriendly) {
-<section class="toolbar-container">
+<section class="toolbar-container no-print">
     <button title="Deprecated: Will allow user to download pdf directly in the future"
         (click)="togglePrinterFriendly()">Printer Friendly X </button>
     <button title="Hide words based on % hidden" (click)="toggleHideWords()">Hide Words</button>
@@ -7,14 +6,25 @@
     <input type="number" placeholder="# Lines to Append" [(ngModel)]="numLinesToAppend" />
     <button title="Scramble order of word/meaning pairs" (click)="scrambleOrder()">Scramble Order</button>
     <button title="Save hidden words">Save Hidden Words</button>
-
 </section>
+
+@if(isPrinterFriendly()) {
+<div class="student-info-container">
+    <p>Name:....................................</p>
+    <p>Date:......./......./{{currentYear}}</p>
+    <p>Class:....................................</p>
+</div>
 }
 
+@if(!isPrinterFriendly()) {
 <div class="topic-title-container">
     <input class="topic-title-input" type="text" placeholder="Type the topic title here" [(ngModel)]="topicTitle" />
 </div>
+} @else {
+<h1>{{topicTitle()}}</h1>
+}
 
+@if(!isPrinterFriendly()) {
 <section class="word-meaning-container">
     <div class="word-container">
         <h1>Words</h1>
@@ -26,18 +36,36 @@
         <textarea placeholder="Input meanings" rows="40" cols="40" [(ngModel)]="meanings"></textarea>
     </div>
 
-    @if (!isPrinterFriendly) {
-
-    <section class="summary-container">
+    @if (!isPrinterFriendly()) {
+    <section class="summary-container no-print">
         <h1>_______</h1>
         <h2>Summary</h2>
-        <p><b>Printer Friendly X:</b> {{isPrinterFriendly}}</p>
-        <p><b>Hide Words:</b> {{isHideWords}} </p>
+        <p><b>Printer Friendly X:</b> {{isPrinterFriendly()}}</p>
+        <p><b>Hide Words:</b> {{isHideWords()}} </p>
         <p><b>% Hidden:</b> {{percentHidden }}</p>
         <p><b># Lines to Append:</b> {{numLinesToAppend}} </p>
-        <p><b>Topic Title:</b> {{topicTitle}} </p>
-        <p><b>Input Words:</b> {{words}}</p>
-        <p><b>Input Meanings:</b> {{meanings}}</p>
+        <p><b>Topic Title:</b> {{topicTitle()}} </p>
+        <p><b>Input Words:</b> {{words()}}</p>
+        <p><b>Input Meanings:</b> {{meanings()}}</p>
     </section>
     }
 </section>
+} @else {
+<table>
+    <thead>
+        <tr>
+            <th>Words</th>
+            <th>Meanings</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (pair of wordMeaningPairs(); track $index) {
+        <tr>
+            <td>{{ pair.word }}</td>
+            <td>{{ pair.meaning }}</td>
+        </tr>
+        }
+    </tbody>
+</table>
+}

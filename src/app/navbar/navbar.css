@@ -1,13 +1,23 @@
 /* ul, li a, li a:hover styles were inspired from w3 schools */
 
+/* @media print {
+  nav {
+    display: none !important;
+  }
+} */
+
 nav {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 200px;
+    width: 10vw;
     background-color: #f1f1f1;
     height: 100%;
     position: fixed;
+}
+
+nav p {
+    margin: 0
 }
 
 nav a, nav p {
@@ -23,7 +33,6 @@ nav a:hover, nav p:hover {
     color: white;
 }
 
-
 .submenu {
     position: relative
 }
@@ -31,11 +40,11 @@ nav a:hover, nav p:hover {
 .submenu-items {
     display: none;
     position: absolute;
-    left: 200px;
+    left: 10vw;
     /* appear to the right of the sidebar */
     top: 0;
     background-color: #f1f1f1;
-    width: 200px;
+    width: 10vw;
     border-left: 1px solid #ccc;
     z-index: 10;
 }

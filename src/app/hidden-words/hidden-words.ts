@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HiddenWordsService } from '../hidden-words-service';
@@ -11,30 +11,41 @@ import { HiddenWordsService } from '../hidden-words-service';
 })
 export class HiddenWords {
   hiddenWordsService = inject(HiddenWordsService)
+  currentYear = new Date().getFullYear()
 
-  isPrinterFriendly = false
-  isHideWords = false
-  percentHidden: Number | null = null
+  isPrinterFriendly = signal(false)
+  isHideWords = signal(false)
+  topicTitle = signal('')
+  words = signal('')
+  meanings = signal('')
   numLinesToAppend: Number | null = null
-  topicTitle = ''
+  percentHidden: Number | null = null
 
-  words = ''
-  meanings = ''
+  wordMeaningPairs = computed(() => {
+    const wordsArr = this.words().split('\n');
+    const meaningsArr = this.meanings().split('\n');
+    const maxLength = Math.max(wordsArr.length, meaningsArr.length);
+    return Array.from({ length: maxLength }, (_, i) => ({ index: i, word: wordsArr[i] ?? '', meaning: meaningsArr[i] ?? '' }));
+  });
 
   constructor(route: ActivatedRoute) {
     const topicTitle: string = route.snapshot.params['topicTitle'];
 
     const hiddenWord = this.hiddenWordsService.getHiddenWordByTopicTitle(topicTitle)
     if (hiddenWord) {
-      this.topicTitle = hiddenWord.topicTitle
+      this.topicTitle.set(hiddenWord.topicTitle)
+      this.words.set(hiddenWord.words ?? '')
+      this.meanings.set(hiddenWord.meanings ?? '')
+      this.numLinesToAppend = hiddenWord.numLinesToAppend ?? null
+      this.percentHidden = hiddenWord.percentHidden ?? null
     }
   }
 
   scrambleOrder() {
     /** This function was generated with the help of Copilot, 
      * based on my original code in Hidden Words Project */
-    const wordsArray = this.words.split('\n');
-    const meaningsArray = this.meanings.split('\n');
+    const wordsArray = this.words().split('\n');
+    const meaningsArray = this.meanings().split('\n');
 
     for (let i = wordsArray.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -42,18 +53,17 @@ export class HiddenWords {
       [meaningsArray[i], meaningsArray[j]] = [meaningsArray[j], meaningsArray[i]];
     }
 
-    this.words = wordsArray.join('\n');
-    this.meanings = meaningsArray.join('\n');
+    this.words.set(wordsArray.join('\n'));
+    this.meanings.set(meaningsArray.join('\n'));
   }
 
 
   toggleHideWords() {
-    this.isHideWords = !this.isHideWords;
+    console.log(this.wordMeaningPairs())
+    this.isHideWords.update((prev) => !prev)
   }
 
   togglePrinterFriendly() {
-    this.isPrinterFriendly = !this.isPrinterFriendly;
+    this.isPrinterFriendly.update((prev) => !prev)
   }
-
-
 }
