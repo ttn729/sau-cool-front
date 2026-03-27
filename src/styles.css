@@ -1,8 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
 @media print {
   .no-print {
     display: none !important;
   }
 
-  .content { margin-left: 0 !important; }
+  .content {
+    margin-left: 0 !important;
+  }
 }
