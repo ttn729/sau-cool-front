@@ -3,7 +3,7 @@ import { HiddenWords } from '../hidden-words/hidden-words';
 
 @Component({
   selector: 'app-home',
-  imports: [HiddenWords],
+  imports: [],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
